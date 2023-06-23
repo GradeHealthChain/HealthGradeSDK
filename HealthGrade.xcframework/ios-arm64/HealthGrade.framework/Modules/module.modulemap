@@ -1,0 +1,11 @@
+framework module HealthGrade {
+  umbrella header "HealthGrade.h"
+
+  export *
+  module * { export * }
+}
+
+module HealthGrade.Swift {
+  header "HealthGrade-Swift.h"
+  requires objc
+}

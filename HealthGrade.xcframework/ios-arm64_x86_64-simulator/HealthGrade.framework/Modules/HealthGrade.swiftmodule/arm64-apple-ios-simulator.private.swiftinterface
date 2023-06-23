@@ -1,0 +1,214 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name HealthGrade
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Alamofire
+import CryptoSwift
+import Foundation
+@_exported import HealthGrade
+import IDZSwiftCommonCrypto
+import Kanna
+import Security
+import SecurityExtensions
+import Swift
+import SwiftBytes
+import SwiftyJSON
+import SwiftyRSA
+import UIKit
+import _Concurrency
+import _StringProcessing
+@_hasMissingDesignatedInitializers open class CertificateRequest {
+  @objc deinit
+}
+public enum GhcStatusCode : Swift.Int {
+  case success
+  case mainProcess
+  case subProcess
+  case ghcServerError
+  case networkError
+  case wrongJuminNumber
+  case wrongCertificatePwd
+  case wrongCertificate
+  case certificateVarificationFail
+  case timeOut
+  case htmlError
+  case simpleAuthCertificateError
+  case simpleAuthRequestFailStep1
+  case simpleAuthRequestFailStep2
+  case simpleAuthNotConfirm
+  case simpleAuthFailStep1
+  case simpleAuthFailStep2
+  case simpleAuthLoginFail
+  case wrongApiCall
+  case healthDataLogin
+  case healthDataLoginSuccess
+  case healthDataCollect
+  case healthDataCollectSuccess
+  case healthDataCollecting
+  case medicineDataLogin
+  case medicineDataLoginSuccess
+  case medicineDataCollect
+  case medicineDataCollectSuccess
+  case medicineDataCollecting
+  case gradeCalculation
+  case gradeCalculationSuccess
+  case retry
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol HiraScrapperDelegate {
+  func hiraScrapperStatus(code: HealthGrade.GhcStatusCode)
+}
+public typealias completeBlock = (_ success: Swift.Bool, _ rsp: Swift.String?) -> Swift.Void
+public protocol HealthGradeDelegate {
+  func healthGradeStatus(code: Swift.Int)
+}
+@_hasMissingDesignatedInitializers open class HealthGrade {
+  public static let shared: HealthGrade.HealthGrade
+  public var delegate: (any HealthGrade.HealthGradeDelegate)?
+  public func setBuildMode(type: HealthGrade.BuildType)
+  public func runSimpleAuthWithJoin()
+  public func simpleAuth(ci: Swift.String? = nil, di: Swift.String? = nil, partnerKey: Swift.String, partnerUserId: Swift.String, authItem: HealthGrade.AuthItem, gender: HealthGrade.GenderType, smokeMsg: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, birthDay: Swift.String, userName: Swift.String, phoneNumber: Swift.String, telecomCompany: HealthGrade.TelecomCompany, stepCount: [HealthGrade.StepCount] = [], scoreHistory: [HealthGrade.ScoreHistory] = [])
+  public func simpleAuthComplete(complete: HealthGrade.completeBlock?)
+  public func calcFromCertificate(partnerKey: Swift.String, partnerUserId: Swift.String, gender: HealthGrade.GenderType, smokeMsg: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, userName: Swift.String, phoneNumber: Swift.String, telecomCompany: HealthGrade.TelecomCompany, jumin1: Swift.String, jumin2: Swift.String, certPassword: Swift.String, certificate: Foundation.Data, certificateKey: Foundation.Data, complete: HealthGrade.completeBlock?)
+  public func calcFromCertificateWithJoin(ci: Swift.String, di: Swift.String, partnerKey: Swift.String, partnerUserId: Swift.String, gender: HealthGrade.GenderType, smokeMsg: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, userName: Swift.String, phoneNumber: Swift.String, telecomCompany: HealthGrade.TelecomCompany, jumin1: Swift.String, jumin2: Swift.String, certPassword: Swift.String, certificate: Foundation.Data, certificateKey: Foundation.Data, complete: HealthGrade.completeBlock?)
+  @objc deinit
+}
+public struct Term : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Terms : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+open class TermsManager {
+  public init()
+  public func getTermsList(partnerKey: Swift.String, partnerUserId: Swift.String, userName: Swift.String, complete: @escaping (Swift.Int, Swift.String, Swift.String?) -> Swift.Void)
+  public func getTermsListForSimpleAuth(partnerKey: Swift.String, partnerUserId: Swift.String, userName: Swift.String, complete: @escaping (Swift.Int, Swift.String, Swift.String?) -> Swift.Void)
+  public func userDelete(ci: Swift.String, partnerKey: Swift.String, complete: @escaping (Swift.Int, Swift.String) -> Swift.Void)
+  @objc deinit
+}
+public enum BuildType : Swift.Int {
+  case dev
+  case production
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum GenderType : Swift.Int {
+  case male
+  case female
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum TelecomCompany : Swift.Int {
+  case none
+  case skt
+  case kt
+  case uplus
+  case skt_saving
+  case kt_saving
+  case uplus_saving
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SignupMode : Swift.Int {
+  case none
+  case normal
+  case temporary
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SmokingType : Swift.Int {
+  case never
+  case usedTo
+  case yes
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum MedicalTreatment : Swift.Int {
+  case yes
+  case no
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct StepCount {
+  public init(step_date: Swift.String, step_count: Swift.Int)
+  public func rawDictionary() -> [Swift.String : Any]
+}
+public struct ScoreHistory {
+  public init(month: Swift.Int, score: Swift.Int)
+  public func rawDictionary() -> [Swift.String : Any]
+}
+public protocol CertManagerDelegate {
+  func authCode(code: Swift.String)
+  func saveCertificate()
+}
+open class CertManager {
+  public init()
+  public init(_ delegate: any HealthGrade.CertManagerDelegate)
+  public func getPublicKey(rsaCert: Swift.String?) -> SwiftyRSA.PublicKey?
+  public func getCertifycate(_ encode: Swift.Bool = true) -> [Swift.String : Swift.String]?
+  @objc deinit
+}
+open class OcrManager {
+  public init(partnerKey: Swift.String, ci: Swift.String)
+  public func upload(smoking: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, images: [Foundation.Data])
+  @objc deinit
+}
+extension Security.SecIdentity {
+  public static func create(ofSize bits: Swift.UInt = 3072, subjectCommonName name: Swift.String, subjectEmailAddress email: Swift.String, validFrom: Foundation.Date? = nil, validTo: Foundation.Date? = nil) -> Security.SecIdentity?
+  public static func find(withPublicKey pubKey: Security.SecKey) -> Security.SecIdentity?
+}
+public enum AuthItem {
+  case none, kakao, pass, naver, kb, samsung, payco, certificate
+  public static func == (a: HealthGrade.AuthItem, b: HealthGrade.AuthItem) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension HealthGrade.GhcStatusCode : Swift.Equatable {}
+extension HealthGrade.GhcStatusCode : Swift.Hashable {}
+extension HealthGrade.GhcStatusCode : Swift.RawRepresentable {}
+extension HealthGrade.BuildType : Swift.Equatable {}
+extension HealthGrade.BuildType : Swift.Hashable {}
+extension HealthGrade.BuildType : Swift.RawRepresentable {}
+extension HealthGrade.GenderType : Swift.Equatable {}
+extension HealthGrade.GenderType : Swift.Hashable {}
+extension HealthGrade.GenderType : Swift.RawRepresentable {}
+extension HealthGrade.TelecomCompany : Swift.Equatable {}
+extension HealthGrade.TelecomCompany : Swift.Hashable {}
+extension HealthGrade.TelecomCompany : Swift.RawRepresentable {}
+extension HealthGrade.SignupMode : Swift.Equatable {}
+extension HealthGrade.SignupMode : Swift.Hashable {}
+extension HealthGrade.SignupMode : Swift.RawRepresentable {}
+extension HealthGrade.SmokingType : Swift.Equatable {}
+extension HealthGrade.SmokingType : Swift.Hashable {}
+extension HealthGrade.SmokingType : Swift.RawRepresentable {}
+extension HealthGrade.MedicalTreatment : Swift.Equatable {}
+extension HealthGrade.MedicalTreatment : Swift.Hashable {}
+extension HealthGrade.MedicalTreatment : Swift.RawRepresentable {}
+extension HealthGrade.AuthItem : Swift.Equatable {}
+extension HealthGrade.AuthItem : Swift.Hashable {}
