@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "HealthGradeSdk",
-    platforms: [.iOS(.v12)],
+    platforms: [.iOS(.v13)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -20,7 +20,6 @@ let package = Package(
         .package(url: "https://github.com/iosdevzone/IDZSwiftCommonCrypto.git", from: "0.0.0"),
         .package(url: "https://github.com/svdo/swift-SecurityExtensions.git", from: "4.0.0"),
         .package(url: "https://github.com/dapperstout/swift-bytes.git", from: "0.0.0"),
-        .package(url: "https://github.com/TakeScoop/SwiftyRSA.git", from: "1.0.0")
     ],
     targets: [
         .binaryTarget(

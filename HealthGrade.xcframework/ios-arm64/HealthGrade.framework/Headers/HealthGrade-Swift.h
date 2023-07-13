@@ -260,6 +260,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import Foundation;
+@import ObjectiveC;
+@import Security;
 #endif
 
 #endif
@@ -284,6 +287,123 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+
+@class NSString;
+@class NSData;
+@class PublicKey;
+@class EncryptedMessage;
+@class PrivateKey;
+enum DigestType : NSInteger;
+@class Signature;
+@class VerificationResult;
+
+SWIFT_CLASS_NAMED("_objc_ClearMessage")
+@interface ClearMessage : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nonnull base64String;
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithString:(NSString * _Nonnull)string using:(NSUInteger)rawEncoding error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBase64Encoded:(NSString * _Nonnull)base64String error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (NSString * _Nullable)stringWithEncoding:(NSUInteger)rawEncoding error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (EncryptedMessage * _Nullable)encryptedWith:(PublicKey * _Nonnull)key padding:(SecPadding)padding error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (Signature * _Nullable)signedWith:(PrivateKey * _Nonnull)key digestType:(enum DigestType)digestType error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (VerificationResult * _Nullable)verifyWith:(PublicKey * _Nonnull)key signature:(Signature * _Nonnull)signature digestType:(enum DigestType)digestType error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_objc_EncryptedMessage")
+@interface EncryptedMessage : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nonnull base64String;
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBase64Encoded:(NSString * _Nonnull)base64String error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (ClearMessage * _Nullable)decryptedWith:(PrivateKey * _Nonnull)key padding:(SecPadding)padding error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_objc_KeyPair")
+@interface KeyPair : NSObject
+@property (nonatomic, readonly, strong) PrivateKey * _Nonnull privateKey;
+@property (nonatomic, readonly, strong) PublicKey * _Nonnull publicKey;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class NSBundle;
+
+SWIFT_CLASS_NAMED("_objc_PrivateKey")
+@interface PrivateKey : NSObject
+@property (nonatomic, readonly) SecKeyRef _Nonnull reference;
+@property (nonatomic, readonly, copy) NSData * _Nullable originalData;
+- (NSString * _Nullable)pemStringAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (NSData * _Nullable)dataAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)base64StringAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithData:(NSData * _Nonnull)data error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithReference:(SecKeyRef _Nonnull)reference error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBase64Encoded:(NSString * _Nonnull)base64String error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithPemEncoded:(NSString * _Nonnull)pemString error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithPemNamed:(NSString * _Nonnull)pemName in:(NSBundle * _Nonnull)bundle error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithDerNamed:(NSString * _Nonnull)derName in:(NSBundle * _Nonnull)bundle error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_objc_PublicKey")
+@interface PublicKey : NSObject
+@property (nonatomic, readonly) SecKeyRef _Nonnull reference;
+@property (nonatomic, readonly, copy) NSData * _Nullable originalData;
+- (NSString * _Nullable)pemStringAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (NSData * _Nullable)dataAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)base64StringAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithData:(NSData * _Nonnull)data error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithReference:(SecKeyRef _Nonnull)reference error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBase64Encoded:(NSString * _Nonnull)base64String error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithPemEncoded:(NSString * _Nonnull)pemString error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithPemNamed:(NSString * _Nonnull)pemName in:(NSBundle * _Nonnull)bundle error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithDerNamed:(NSString * _Nonnull)derName in:(NSBundle * _Nonnull)bundle error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
++ (NSArray<PublicKey *> * _Nonnull)publicKeysWithPemEncoded:(NSString * _Nonnull)pemString SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_objc_Signature")
+@interface Signature : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nonnull base64String;
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBase64Encoded:(NSString * _Nonnull)base64String error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, DigestType, open) {
+  DigestTypeSha1 = 0,
+  DigestTypeSha224 = 1,
+  DigestTypeSha256 = 2,
+  DigestTypeSha384 = 3,
+  DigestTypeSha512 = 4,
+};
+
+
+SWIFT_CLASS_NAMED("_objc_SwiftyRSA")
+@interface SwiftyRSA : NSObject
++ (KeyPair * _Nullable)generateRSAKeyPairWithSizeInBits:(NSInteger)size error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT SWIFT_AVAILABILITY(tvos,introduced=10.0) SWIFT_AVAILABILITY(watchos,introduced=3.0) SWIFT_AVAILABILITY(ios,introduced=10.0);
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS_NAMED("_objc_VerificationResult")
+@interface VerificationResult : NSObject
+@property (nonatomic, readonly) BOOL isSuccessful;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif
 #if defined(__cplusplus)

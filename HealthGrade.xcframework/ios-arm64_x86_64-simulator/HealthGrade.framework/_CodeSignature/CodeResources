@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/HealthGrade-Swift.h</key>
 		<data>
-		kqDHHJrXMYcJOwYVfNLTDO8ahBo=
+		cJ2F9l0ntiGdfb9R8yQNiWeY82g=
 		</data>
 		<key>Headers/HealthGrade.h</key>
 		<data>
@@ -14,47 +14,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		PfnUCG5d8PB/IeEVcJ+sthLJwsM=
+		j0hFdVVT3iBaK7rNb2EXhW/4C94=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		2m0BXs4TxK2JZO5pbPMjFdBd3gk=
+		tjHr35MfYdPXZLAnDfmlTCnh61E=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		o8ReAnIIa0eWKMhs6/23NmIEuc4=
+		XXSnNbe+aNLXUbDWQRyT8K67v3A=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		P1PQSPq8iFD3PWMwxTGl1J3a9DI=
+		CugY6CnTU0au4r4AJ16A3RY3bnk=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		o8ReAnIIa0eWKMhs6/23NmIEuc4=
+		XXSnNbe+aNLXUbDWQRyT8K67v3A=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		NbfynPqGCCpKp8jBdJcQHr2g0hM=
+		QMlZB1GqNxQAYbbsDAx2iQMsNB8=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		2m0BXs4TxK2JZO5pbPMjFdBd3gk=
+		tjHr35MfYdPXZLAnDfmlTCnh61E=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		f8TO2fteaBkUNuVSS08anPDEg+I=
+		s8iMIZlLdfwX6vmeaXUpBWUC4lc=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		dPbTxzafe6ri3sHhixKCrAeAYis=
+		l82xT/CyfcssoGSD1OcAAfJ7RgY=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		f8TO2fteaBkUNuVSS08anPDEg+I=
+		s8iMIZlLdfwX6vmeaXUpBWUC4lc=
 		</data>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		nuOFEuYYFE5/f0730XsInEmMZBg=
+		JHSm7HpqjEzMrGvDjHa1P5zqluE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -67,7 +67,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hd7yyBAdwBHmogyleqpheUM0tu+YwhW80cW/QRKn/Nw=
+			yguslpTC35NNO9qJcSieji7pqNjH5dnE0iAPDsp2rjM=
 			</data>
 		</dict>
 		<key>Headers/HealthGrade.h</key>
@@ -81,70 +81,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ag23z39kabrYYE1T2rgnamytDWB3k4EmJLMdS4eLRYs=
+			vOOuLPpwMS6fZP8Ge9Ua8DtNm75U7Kxw9lLiv2kZSNg=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ez3Kb9EZU3eSiiVZr6FQJJf2iafE98o3QtyngWo+QCk=
+			I2OhNWjnHi9m3OYM5ZN6/wRNu+eNg1hM7gtGmIms1NI=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/RUbCKZwf9XxU6DKKdoGyql1/Eug+G6VeT1OnKaMVIs=
+			wAqNcAAhCTTh1ILLHoFzEH1JIvZS+gDlhNbYCyGWkVw=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ez3Kb9EZU3eSiiVZr6FQJJf2iafE98o3QtyngWo+QCk=
+			I2OhNWjnHi9m3OYM5ZN6/wRNu+eNg1hM7gtGmIms1NI=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jfetPmt3D/fjoYwM26wBhoqwMY/F71CwoT0O+6p84Fk=
+			fYZoe8WGf8jCkcuKxpXZuRMg2gjUSRcdEg2dsh8X8L8=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ag23z39kabrYYE1T2rgnamytDWB3k4EmJLMdS4eLRYs=
+			vOOuLPpwMS6fZP8Ge9Ua8DtNm75U7Kxw9lLiv2kZSNg=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d55BplmX8kFY8ohETfyPVcDVggd6IfqxzmZTIXn/r6I=
+			DsJN8P4DorHR9qH89nRUSPYI7CbdAsECL0GoZ4KaCtk=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LQrB66s2LdyYwRPHbiHQHww3qEnOpV8nVPIwuFUTT/U=
+			tyOValHBr2sp9iln72hZ2dwJGVdtBdHWSHTOJIFFBT0=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d55BplmX8kFY8ohETfyPVcDVggd6IfqxzmZTIXn/r6I=
+			DsJN8P4DorHR9qH89nRUSPYI7CbdAsECL0GoZ4KaCtk=
 			</data>
 		</dict>
 		<key>Modules/HealthGrade.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EnorK3tYfVI4TOZrz5vNjleQMoxuTTW2X79bcNPsA6Y=
+			5KixxXX9JbkAETkGEGJwSkHs0r+VY81WBYWGrGD9dpM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -3,6 +3,7 @@
 // swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name HealthGrade
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Alamofire
+import CommonCrypto
 import CryptoSwift
 import Foundation
 @_exported import HealthGrade
@@ -13,12 +14,41 @@ import SecurityExtensions
 import Swift
 import SwiftBytes
 import SwiftyJSON
-import SwiftyRSA
 import UIKit
 import _Concurrency
 import _StringProcessing
 @_hasMissingDesignatedInitializers open class CertificateRequest {
   @objc deinit
+}
+public enum SwiftyRSAError : Swift.Error {
+  case pemDoesNotContainKey
+  case keyRepresentationFailed(error: CoreFoundation.CFError?)
+  case keyGenerationFailed(error: CoreFoundation.CFError?)
+  case keyCreateFailed(error: CoreFoundation.CFError?)
+  case keyAddFailed(status: Darwin.OSStatus)
+  case keyCopyFailed(status: Darwin.OSStatus)
+  case tagEncodingFailed
+  case asn1ParsingFailed
+  case invalidAsn1RootNode
+  case invalidAsn1Structure
+  case invalidBase64String
+  case chunkDecryptFailed(index: Swift.Int)
+  case chunkEncryptFailed(index: Swift.Int)
+  case stringToDataConversionFailed
+  case dataToStringConversionFailed
+  case invalidDigestSize(digestSize: Swift.Int, maxChunkSize: Swift.Int)
+  case signatureCreateFailed(status: Darwin.OSStatus)
+  case signatureVerifyFailed(status: Darwin.OSStatus)
+  case pemFileNotFound(name: Swift.String)
+  case derFileNotFound(name: Swift.String)
+  case notAPublicKey
+  case notAPrivateKey
+  case x509CertificateFailed
+}
+extension HealthGrade.SwiftyRSAError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
 }
 public enum GhcStatusCode : Swift.Int {
   case success
@@ -66,8 +96,8 @@ public typealias completeBlock = (_ success: Swift.Bool, _ rsp: Swift.String?) -
 public protocol HealthGradeDelegate {
   func healthGradeStatus(code: Swift.Int)
 }
-@_hasMissingDesignatedInitializers open class HealthGrade {
-  public static let shared: HealthGrade.HealthGrade
+@_hasMissingDesignatedInitializers open class CalcHealthGrade {
+  public static let shared: HealthGrade.CalcHealthGrade
   public var delegate: (any HealthGrade.HealthGradeDelegate)?
   public func setBuildMode(type: HealthGrade.BuildType)
   public func runSimpleAuthWithJoin()
@@ -75,6 +105,133 @@ public protocol HealthGradeDelegate {
   public func simpleAuthComplete(complete: HealthGrade.completeBlock?)
   public func calcFromCertificate(partnerKey: Swift.String, partnerUserId: Swift.String, gender: HealthGrade.GenderType, smokeMsg: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, userName: Swift.String, phoneNumber: Swift.String, telecomCompany: HealthGrade.TelecomCompany, jumin1: Swift.String, jumin2: Swift.String, certPassword: Swift.String, certificate: Foundation.Data, certificateKey: Foundation.Data, complete: HealthGrade.completeBlock?)
   public func calcFromCertificateWithJoin(ci: Swift.String, di: Swift.String, partnerKey: Swift.String, partnerUserId: Swift.String, gender: HealthGrade.GenderType, smokeMsg: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, userName: Swift.String, phoneNumber: Swift.String, telecomCompany: HealthGrade.TelecomCompany, jumin1: Swift.String, jumin2: Swift.String, certPassword: Swift.String, certificate: Foundation.Data, certificateKey: Foundation.Data, complete: HealthGrade.completeBlock?)
+  @objc deinit
+}
+public class PublicKey : HealthGrade.Key {
+  final public let reference: Security.SecKey
+  final public let originalData: Foundation.Data?
+  public func pemString() throws -> Swift.String
+  required public init(reference: Security.SecKey) throws
+  required public init(data: Foundation.Data) throws
+  public static func publicKeys(pemEncoded pemString: Swift.String) -> [HealthGrade.PublicKey]
+  @objc deinit
+}
+extension Foundation.Data {
+  public func prependx509Header() -> Foundation.Data
+  public func hasX509Header() throws -> Swift.Bool
+  public func isAnHeaderlessKey() throws -> Swift.Bool
+}
+public typealias Padding = Security.SecPadding
+public enum SwiftyRSA {
+  @available(iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+  public static func generateRSAKeyPair(sizeInBits size: Swift.Int) throws -> (privateKey: HealthGrade.PrivateKey, publicKey: HealthGrade.PublicKey)
+}
+@_hasMissingDesignatedInitializers @objc(KeyPair) public class _objc_KeyPair : ObjectiveC.NSObject {
+  @objc final public let privateKey: HealthGrade._objc_PrivateKey
+  @objc final public let publicKey: HealthGrade._objc_PublicKey
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(SwiftyRSA) public class _objc_SwiftyRSA : ObjectiveC.NSObject {
+  @available(iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+  @objc public class func generateRSAKeyPair(sizeInBits size: Swift.Int) throws -> HealthGrade._objc_KeyPair
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(PublicKey) public class _objc_PublicKey : ObjectiveC.NSObject, HealthGrade.Key {
+  @objc public var reference: Security.SecKey {
+    @objc get
+  }
+  @objc public var originalData: Foundation.Data? {
+    @objc get
+  }
+  @objc public func pemString() throws -> Swift.String
+  @objc public func data() throws -> Foundation.Data
+  @objc public func base64String() throws -> Swift.String
+  required public init(swiftValue: HealthGrade.PublicKey)
+  @objc required public init(data: Foundation.Data) throws
+  @objc required public init(reference: Security.SecKey) throws
+  @objc required public init(base64Encoded base64String: Swift.String) throws
+  @objc required public init(pemEncoded pemString: Swift.String) throws
+  @objc required public init(pemNamed pemName: Swift.String, in bundle: Foundation.Bundle) throws
+  @objc required public init(derNamed derName: Swift.String, in bundle: Foundation.Bundle) throws
+  @objc public static func publicKeys(pemEncoded pemString: Swift.String) -> [HealthGrade._objc_PublicKey]
+  @objc deinit
+}
+@objc(PrivateKey) public class _objc_PrivateKey : ObjectiveC.NSObject, HealthGrade.Key {
+  @objc public var reference: Security.SecKey {
+    @objc get
+  }
+  @objc public var originalData: Foundation.Data? {
+    @objc get
+  }
+  @objc public func pemString() throws -> Swift.String
+  @objc public func data() throws -> Foundation.Data
+  @objc public func base64String() throws -> Swift.String
+  required public init(swiftValue: HealthGrade.PrivateKey)
+  @objc required public init(data: Foundation.Data) throws
+  @objc required public init(reference: Security.SecKey) throws
+  @objc required public init(base64Encoded base64String: Swift.String) throws
+  @objc required public init(pemEncoded pemString: Swift.String) throws
+  @objc required public init(pemNamed pemName: Swift.String, in bundle: Foundation.Bundle) throws
+  @objc required public init(derNamed derName: Swift.String, in bundle: Foundation.Bundle) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc(VerificationResult) public class _objc_VerificationResult : ObjectiveC.NSObject {
+  @objc final public let isSuccessful: Swift.Bool
+  @objc deinit
+}
+@objc(ClearMessage) public class _objc_ClearMessage : ObjectiveC.NSObject, HealthGrade.Message {
+  @objc public var base64String: Swift.String {
+    @objc get
+  }
+  @objc public var data: Foundation.Data {
+    @objc get
+  }
+  required public init(swiftValue: HealthGrade.ClearMessage)
+  @objc required public init(data: Foundation.Data)
+  @objc required public init(string: Swift.String, using rawEncoding: Swift.UInt) throws
+  @objc required public init(base64Encoded base64String: Swift.String) throws
+  @objc public func string(encoding rawEncoding: Swift.UInt) throws -> Swift.String
+  @objc public func encrypted(with key: HealthGrade._objc_PublicKey, padding: HealthGrade.Padding) throws -> HealthGrade._objc_EncryptedMessage
+  @objc public func signed(with key: HealthGrade._objc_PrivateKey, digestType: HealthGrade._objc_Signature.DigestType) throws -> HealthGrade._objc_Signature
+  @objc public func verify(with key: HealthGrade._objc_PublicKey, signature: HealthGrade._objc_Signature, digestType: HealthGrade._objc_Signature.DigestType) throws -> HealthGrade._objc_VerificationResult
+  @objc deinit
+}
+@objc(EncryptedMessage) public class _objc_EncryptedMessage : ObjectiveC.NSObject, HealthGrade.Message {
+  @objc public var base64String: Swift.String {
+    @objc get
+  }
+  @objc public var data: Foundation.Data {
+    @objc get
+  }
+  required public init(swiftValue: HealthGrade.EncryptedMessage)
+  @objc required public init(data: Foundation.Data)
+  @objc required public init(base64Encoded base64String: Swift.String) throws
+  @objc public func decrypted(with key: HealthGrade._objc_PrivateKey, padding: HealthGrade.Padding) throws -> HealthGrade._objc_ClearMessage
+  @objc deinit
+}
+@objc(Signature) public class _objc_Signature : ObjectiveC.NSObject {
+  @objc public enum DigestType : Swift.Int {
+    case sha1
+    case sha224
+    case sha256
+    case sha384
+    case sha512
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var base64String: Swift.String {
+    @objc get
+  }
+  @objc public var data: Foundation.Data {
+    @objc get
+  }
+  required public init(swiftValue: HealthGrade.Signature)
+  @objc public init(data: Foundation.Data)
+  @objc required public init(base64Encoded base64String: Swift.String) throws
   @objc deinit
 }
 public struct Term : Swift.Codable {
@@ -168,8 +325,35 @@ public protocol CertManagerDelegate {
 open class CertManager {
   public init()
   public init(_ delegate: any HealthGrade.CertManagerDelegate)
-  public func getPublicKey(rsaCert: Swift.String?) -> SwiftyRSA.PublicKey?
+  public func getPublicKey(rsaCert: Swift.String?) -> HealthGrade.PublicKey?
   public func getCertifycate(_ encode: Swift.Bool = true) -> [Swift.String : Swift.String]?
+  @objc deinit
+}
+public protocol Key : AnyObject {
+  var reference: Security.SecKey { get }
+  var originalData: Foundation.Data? { get }
+  init(data: Foundation.Data) throws
+  init(reference: Security.SecKey) throws
+  init(base64Encoded base64String: Swift.String) throws
+  init(pemEncoded pemString: Swift.String) throws
+  init(pemNamed pemName: Swift.String, in bundle: Foundation.Bundle) throws
+  init(derNamed derName: Swift.String, in bundle: Foundation.Bundle) throws
+  func pemString() throws -> Swift.String
+  func data() throws -> Foundation.Data
+  func base64String() throws -> Swift.String
+}
+extension HealthGrade.Key {
+  public func base64String() throws -> Swift.String
+  public func data() throws -> Foundation.Data
+  public init(base64Encoded base64String: Swift.String) throws
+  public init(pemEncoded pemString: Swift.String) throws
+  public init(pemNamed pemName: Swift.String, in bundle: Foundation.Bundle = Bundle.main) throws
+  public init(derNamed derName: Swift.String, in bundle: Foundation.Bundle = Bundle.main) throws
+}
+public class EncryptedMessage : HealthGrade.Message {
+  final public let data: Foundation.Data
+  required public init(data: Foundation.Data)
+  public func decrypted(with key: HealthGrade.PrivateKey, padding: HealthGrade.Padding) throws -> HealthGrade.ClearMessage
   @objc deinit
 }
 open class OcrManager {
@@ -177,9 +361,60 @@ open class OcrManager {
   public func upload(smoking: HealthGrade.SmokingType, medicalTreatment: HealthGrade.MedicalTreatment, images: [Foundation.Data])
   @objc deinit
 }
+public class ClearMessage : HealthGrade.Message {
+  final public let data: Foundation.Data
+  required public init(data: Foundation.Data)
+  convenience public init(string: Swift.String, using encoding: Swift.String.Encoding) throws
+  public func string(encoding: Swift.String.Encoding) throws -> Swift.String
+  public func encrypted(with key: HealthGrade.PublicKey, padding: HealthGrade.Padding) throws -> HealthGrade.EncryptedMessage
+  public func signed(with key: HealthGrade.PrivateKey, digestType: HealthGrade.Signature.DigestType) throws -> HealthGrade.Signature
+  public func verify(with key: HealthGrade.PublicKey, signature: HealthGrade.Signature, digestType: HealthGrade.Signature.DigestType) throws -> Swift.Bool
+  @objc deinit
+}
 extension Security.SecIdentity {
   public static func create(ofSize bits: Swift.UInt = 3072, subjectCommonName name: Swift.String, subjectEmailAddress email: Swift.String, validFrom: Foundation.Date? = nil, validTo: Foundation.Date? = nil) -> Security.SecIdentity?
   public static func find(withPublicKey pubKey: Security.SecKey) -> Security.SecIdentity?
+}
+public class PrivateKey : HealthGrade.Key {
+  final public let reference: Security.SecKey
+  final public let originalData: Foundation.Data?
+  public func pemString() throws -> Swift.String
+  required public init(reference: Security.SecKey) throws
+  required public init(data: Foundation.Data) throws
+  @objc deinit
+}
+public class Signature {
+  public enum DigestType {
+    case sha1
+    case sha224
+    case sha256
+    case sha384
+    case sha512
+    public static func == (a: HealthGrade.Signature.DigestType, b: HealthGrade.Signature.DigestType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  final public let data: Foundation.Data
+  public init(data: Foundation.Data)
+  convenience public init(base64Encoded base64String: Swift.String) throws
+  public var base64String: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public protocol Message {
+  var data: Foundation.Data { get }
+  var base64String: Swift.String { get }
+  init(data: Foundation.Data)
+  init(base64Encoded base64String: Swift.String) throws
+}
+extension HealthGrade.Message {
+  public var base64String: Swift.String {
+    get
+  }
+  public init(base64Encoded base64String: Swift.String) throws
 }
 public enum AuthItem {
   case none, kakao, pass, naver, kb, samsung, payco, certificate
@@ -192,6 +427,9 @@ public enum AuthItem {
 extension HealthGrade.GhcStatusCode : Swift.Equatable {}
 extension HealthGrade.GhcStatusCode : Swift.Hashable {}
 extension HealthGrade.GhcStatusCode : Swift.RawRepresentable {}
+extension HealthGrade._objc_Signature.DigestType : Swift.Equatable {}
+extension HealthGrade._objc_Signature.DigestType : Swift.Hashable {}
+extension HealthGrade._objc_Signature.DigestType : Swift.RawRepresentable {}
 extension HealthGrade.BuildType : Swift.Equatable {}
 extension HealthGrade.BuildType : Swift.Hashable {}
 extension HealthGrade.BuildType : Swift.RawRepresentable {}
@@ -210,5 +448,7 @@ extension HealthGrade.SmokingType : Swift.RawRepresentable {}
 extension HealthGrade.MedicalTreatment : Swift.Equatable {}
 extension HealthGrade.MedicalTreatment : Swift.Hashable {}
 extension HealthGrade.MedicalTreatment : Swift.RawRepresentable {}
+extension HealthGrade.Signature.DigestType : Swift.Equatable {}
+extension HealthGrade.Signature.DigestType : Swift.Hashable {}
 extension HealthGrade.AuthItem : Swift.Equatable {}
 extension HealthGrade.AuthItem : Swift.Hashable {}
