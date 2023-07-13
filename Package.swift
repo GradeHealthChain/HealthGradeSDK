@@ -17,7 +17,6 @@ let package = Package(
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.0.0"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/tid-kijyun/Kanna.git", from: "5.0.0"),
-        .package(url: "https://github.com/iosdevzone/IDZSwiftCommonCrypto.git", from: "0.0.0"),
         .package(url: "https://github.com/svdo/swift-SecurityExtensions.git", from: "4.0.0"),
         .package(url: "https://github.com/dapperstout/swift-bytes.git", from: "0.0.0"),
     ],
@@ -31,7 +30,11 @@ let package = Package(
             dependencies: [
                 .target(name: "HealthGradeSdk"),
                 "Alamofire",
-                "CryptoSwift",                
+                "CryptoSwift",
+                "Kanna",
+                "SwiftyJSON",
+                .product(name: "SecurityExtensions", package: "swift-SecurityExtensions"),
+                .product(name: "SwiftBytes", package: "swift-bytes")
             ],
             path: "HealthGrade"
         )
