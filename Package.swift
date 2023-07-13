@@ -4,13 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "HealthGradeSdk",
-    platforms: [.iOS(.v13)],
+    name: "HealthGrade",
+    platforms: [.iOS(.v12)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "HealthGradeSdk",
-            targets: ["HealthGradeSdk"]),
+            name: "HealthGrade",
+            targets: ["HealthGrade"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0"),
@@ -25,6 +25,15 @@ let package = Package(
         .binaryTarget(
             name: "HealthGradeSdk",
             path: "HealthGrade.xcframework"
+        ),
+        .target(
+            name: "HealthGrade",
+            dependencies: [
+                .target(name: "HealthGradeSdk"),
+                "Alamofire",
+                "CryptoSwift",                
+            ],
+            path: "HealthGrade"
         )
     ]
 )
