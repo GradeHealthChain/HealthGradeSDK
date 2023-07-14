@@ -1,0 +1,68 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "bc268c28fb170f494de9e9927c371b8342979ece",
+        "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "32f641cf24fc7abc1c591a2025e9f2f572648b0f",
+        "version" : "1.7.2"
+      }
+    },
+    {
+      "identity" : "idzswiftcommoncrypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/iosdevzone/IDZSwiftCommonCrypto.git",
+      "state" : {
+        "revision" : "d824371e670bd57eb456bbc41139b4997f7207b8",
+        "version" : "0.13.1"
+      }
+    },
+    {
+      "identity" : "kanna",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tid-kijyun/Kanna.git",
+      "state" : {
+        "revision" : "f9e4922223dd0d3dfbf02ca70812cf5531fc0593",
+        "version" : "5.2.7"
+      }
+    },
+    {
+      "identity" : "swift-bytes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dapperstout/swift-bytes.git",
+      "state" : {
+        "revision" : "570b0b8d8694594a41bba998c5ad82eb711fa2de",
+        "version" : "0.8.0"
+      }
+    },
+    {
+      "identity" : "swift-securityextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/svdo/swift-SecurityExtensions.git",
+      "state" : {
+        "revision" : "22a6b3ad4afae59e8dd33b0ccb45fa50cb1deab3",
+        "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "swiftyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyJSON/SwiftyJSON.git",
+      "state" : {
+        "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+        "version" : "5.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
