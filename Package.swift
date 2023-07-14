@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "HealthGrade",
-            targets: ["HealthGradeSDK", "HealthGradeDependencies"]),
+            targets: ["HealthGrade", "HealthGradeSDK"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0"),
@@ -21,12 +21,8 @@ let package = Package(
         .package(url: "https://github.com/dapperstout/swift-bytes.git", from: "0.0.0"),
     ],
     targets: [
-        .binaryTarget(
-            name: "HealthGradeSDK",
-            path: "HealthGrade.xcframework"
-        ),
         .target(
-            name: "HealthGradeDependencies",
+            name: "HealthGrade",
             dependencies: [
                 "Alamofire",
                 "CryptoSwift",
@@ -36,6 +32,10 @@ let package = Package(
                 .product(name: "SwiftBytes", package: "swift-bytes")
             ],
             path: "HealthGrade"
+        ),
+        .binaryTarget(
+            name: "HealthGradeSDK",
+            path: "HealthGradeSDK.xcframework"
         )
     ]
 )
