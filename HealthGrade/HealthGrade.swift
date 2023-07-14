@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+open class HealthGrade {
+    public init() {}
+    
+    
+}

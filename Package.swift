@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "HealthGrade",
-            targets: ["HealthGrade"]),
+            targets: ["HealthGradeSDK", "HealthGradeDependencies"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0"),
@@ -22,13 +22,12 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(
-            name: "HealthGradeSdk",
+            name: "HealthGradeSDK",
             path: "HealthGrade.xcframework"
         ),
         .target(
-            name: "HealthGrade",
+            name: "HealthGradeDependencies",
             dependencies: [
-                .target(name: "HealthGradeSdk"),
                 "Alamofire",
                 "CryptoSwift",
                 "Kanna",
